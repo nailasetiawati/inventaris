@@ -82,17 +82,14 @@
                             <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="features-profile.html" class="dropdown-item has-icon">
+                            <a href="/profile/index.php" class="dropdown-item has-icon">
                                 <i class="far fa-user"></i> Profile
                             </a>
-                            <a href="features-activities.html" class="dropdown-item has-icon">
-                                <i class="fas fa-bolt"></i> Activities
-                            </a>
-                            <a href="features-settings.html" class="dropdown-item has-icon">
+                            <a href="/profile/edit.php" class="dropdown-item has-icon">
                                 <i class="fas fa-cog"></i> Settings
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item has-icon text-danger">
+                            <a href="/index.php" class="dropdown-item has-icon text-danger">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </div>
@@ -102,10 +99,10 @@
             <div class="main-sidebar sidebar-style-2">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="index.html">Inventaris</a>
+                        <a href="/admin/dashboard/index.php">Inventaris</a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
-                        <a href="index.html">IT</a>
+                        <a href="/admin/dashboard/index.php">IT</a>
                     </div>
                     <ul class="sidebar-menu">
                         <li class="mb-2"><a class="nav-link" href="/admin/dashboard/index.php"><i
@@ -140,7 +137,7 @@
                     <div class="section-header">
                         <h1>Daftar Kelas</h1>
                         <div class="section-header-breadcrumb">
-                            <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+                            <div class="breadcrumb-item active"><a href="/admin/dashboard/index.php">Dashboard</a></div>
                             <div class="breadcrumb-item"><a href="#">Kelas</a></div>
                             <div class="breadcrumb-item">Daftar Kelas</div>
                         </div>
@@ -263,8 +260,7 @@
             </div>
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad
-                        Nauval Azhar</a>
+                    Copyright &copy; 2023 Inventaris
                 </div>
                 <div class="footer-right">
 

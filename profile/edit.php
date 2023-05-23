@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Inventaris &mdash; Edit Siswa</title>
+    <title>Inventaris &mdash; Edit Akun</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="../../assets/modules/bootstrap/css/bootstrap.min.css">
@@ -61,14 +61,17 @@
                             <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="/profile/index.php" class="dropdown-item has-icon">
+                            <a href="features-profile.html" class="dropdown-item has-icon">
                                 <i class="far fa-user"></i> Profile
                             </a>
-                            <a href="/profile/edit.php" class="dropdown-item has-icon">
+                            <a href="features-activities.html" class="dropdown-item has-icon">
+                                <i class="fas fa-bolt"></i> Activities
+                            </a>
+                            <a href="features-settings.html" class="dropdown-item has-icon">
                                 <i class="fas fa-cog"></i> Settings
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="/index.php" class="dropdown-item has-icon text-danger">
+                            <a href="#" class="dropdown-item has-icon text-danger">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </div>
@@ -86,7 +89,7 @@
                     <ul class="sidebar-menu">
                         <li class="mb-2"><a class="nav-link" href="/admin/dashboard/index.php"><i
                                     class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-                        <li class="dropdown active mb-2">
+                        <li class="dropdown mb-2">
                             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                                     class="fas fa-users"></i> <span>Siswa</span></a>
                             <ul class="dropdown-menu">
@@ -114,23 +117,26 @@
             <div class="main-content">
                 <section class="section">
                     <div class="section-header">
-                        <h1>Edit Siswa</h1>
+                        <h1>Edit Akun</h1>
                         <div class="section-header-breadcrumb">
                             <div class="breadcrumb-item active"><a href="/admin/dashboard/index.php">Dashboard</a></div>
-                            <div class="breadcrumb-item"><a href="#">Siswa</a></div>
-                            <div class="breadcrumb-item">Edit Siswa</div>
+                            <div class="breadcrumb-item"><a href="#">Profile</a></div>
+                            <div class="breadcrumb-item">Edit Akun</div>
                         </div>
                     </div>
 
                     <div class="section-body">
-                        <h2 class="section-title">Form Edit Siswa</h2>
+                        <h2 class="section-title">Form Edit Akun</h2>
                         <p class="section-lead">
-                            Berikut adalah form edit siswa yang ada pada aplikasi inventaris!
+                            Berikut adalah form edit akun yang ada pada aplikasi inventaris!
                         </p>
 
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
+                                    <div class="card-header bg-primary">
+                                        <h5 class="text-white my-auto">Informasi Akun</h5>
+                                    </div>
                                     <div class="card-body">
                                         <form action="">
                                             <div class="row">
@@ -138,14 +144,16 @@
                                                     <div class="form-group mb-3">
                                                         <label for="nis">Nomor Induk Siswa</label>
                                                         <input type="number" name="nis" id="nis" class="form-control"
-                                                            placeholder="Masukkan Nomor Induk Siswa...." value="202110065">
+                                                            placeholder="Masukkan Nomor Induk Siswa...."
+                                                            value="202110065">
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="form-group mb-3">
                                                         <label for="name">Nama Siswa</label>
                                                         <input type="text" name="name" id="name" class="form-control"
-                                                            placeholder="Masukkan Nama Siswa...." value="Agus Sampoerna">
+                                                            placeholder="Masukkan Nama Siswa...."
+                                                            value="Agus Sampoerna">
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
@@ -165,7 +173,8 @@
                                                     <div class="form-group mb-3">
                                                         <label for="email">Email Siswa</label>
                                                         <input type="email" name="email" id="email" class="form-control"
-                                                            placeholder="Masukkan Email Siswa...." value="agussampoerna@gmail.com">
+                                                            placeholder="Masukkan Email Siswa...."
+                                                            value="agussampoerna@gmail.com">
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
@@ -173,7 +182,8 @@
                                                         <label for="phone">No Telepon Siswa</label>
                                                         <input type="text" name="phone_number" id="phone"
                                                             class="form-control"
-                                                            placeholder="Masukkan No Telepon Siswa...." value="+6283845456789">
+                                                            placeholder="Masukkan No Telepon Siswa...."
+                                                            value="+6283845456789">
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
@@ -188,22 +198,50 @@
                                                     <div class="form-group mb-3">
                                                         <label for="image">Foto Profile</label>
                                                         <div class="custom-file">
-                                                            <input type="file" class="custom-file-input"
-                                                                id="image" name="image">
+                                                            <input type="file" class="custom-file-input" id="image"
+                                                                name="image">
                                                             <label class="custom-file-label" for="customFile">Choose
                                                                 file</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="float-right">
-                                                <a href="/admin/student/index.php" class="btn btn-danger">Kembali</a>
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header bg-primary">
+                                        <h5 class="text-white my-auto">Kata Sandi Akun</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group mb-3">
+                                                    <label for="old">Kata Sandi Lama</label>
+                                                    <input type="password" name="old_password" id="old"
+                                                        class="form-control" placeholder="Masukkan Kata Sandi Lama....">
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label for="new">Kata Sandi Baru</label>
+                                                    <input type="password" name="new_password" id="new"
+                                                        class="form-control" placeholder="Masukkan Kata Sandi Baru....">
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label for="repeat">Ulangi Kata Sandi Baru</label>
+                                                    <input type="password" name="repeat_password" id="repeat"
+                                                        class="form-control" placeholder="Ulangi Kata Sandi Baru....">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="float-right">
+                                    <a href="/profile/index.php" class="btn btn-danger">Kembali</a>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                            </form>
                         </div>
                     </div>
                 </section>

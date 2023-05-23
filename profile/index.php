@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Inventaris &mdash; Tambah Kelas</title>
+    <title>Inventaris &mdash; Detail Akun</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="../../assets/modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../assets/modules/fontawesome/css/all.min.css">
 
     <!-- CSS Libraries -->
+    <link rel="stylesheet" href="../../assets/modules/prism/prism.css">
     <link rel="stylesheet" href="../../assets/modules/datatables/datatables.min.css">
     <link rel="stylesheet" href="../../assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
@@ -61,14 +62,17 @@
                             <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="/profile/index.php" class="dropdown-item has-icon">
+                            <a href="features-profile.html" class="dropdown-item has-icon">
                                 <i class="far fa-user"></i> Profile
                             </a>
-                            <a href="/profile/edit.php" class="dropdown-item has-icon">
+                            <a href="features-activities.html" class="dropdown-item has-icon">
+                                <i class="fas fa-bolt"></i> Activities
+                            </a>
+                            <a href="features-settings.html" class="dropdown-item has-icon">
                                 <i class="fas fa-cog"></i> Settings
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="/index.php" class="dropdown-item has-icon text-danger">
+                            <a href="#" class="dropdown-item has-icon text-danger">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </div>
@@ -86,7 +90,7 @@
                     <ul class="sidebar-menu">
                         <li class="mb-2"><a class="nav-link" href="/admin/dashboard/index.php"><i
                                     class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-                        <li class="dropdown active mb-2">
+                        <li class="dropdown mb-2">
                             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                                     class="fas fa-users"></i> <span>Siswa</span></a>
                             <ul class="dropdown-menu">
@@ -114,35 +118,117 @@
             <div class="main-content">
                 <section class="section">
                     <div class="section-header">
-                        <h1>Edit Kelas</h1>
+                        <h1>Detail Akun</h1>
                         <div class="section-header-breadcrumb">
                             <div class="breadcrumb-item active"><a href="/admin/dashboard/index.php">Dashboard</a></div>
-                            <div class="breadcrumb-item"><a href="#">Kelas</a></div>
-                            <div class="breadcrumb-item">Edit Kelas</div>
+                            <div class="breadcrumb-item"><a href="#">Profile</a></div>
+                            <div class="breadcrumb-item">Detail Akun</div>
                         </div>
                     </div>
 
                     <div class="section-body">
-                        <h2 class="section-title">Form Edit Kelas</h2>
+                        <h2 class="section-title">Informasi Akun</h2>
                         <p class="section-lead">
-                            Berikut adalah form edit kelas yang ada pada aplikasi inventaris!
+                            Berikut adalah data - data yang dimiliki oleh anda.
                         </p>
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <form action="">
-                                            <div class="form-group mb-3">
-                                                <label for="name">Nama Kelas</label>
-                                                <input type="text" name="name" id="name" class="form-control"
-                                                    placeholder="Masukkan Nama Kelas...." value="X - RPL">
+                                <div class="card profile-widget">
+                                    <div class="profile-widget-header">
+                                        <img alt="image" src="../../assets/img/avatar/avatar-1.png"
+                                            class="rounded-circle profile-widget-picture">
+                                        <div class="profile-widget-items">
+                                            <div class="profile-widget-item">
+                                                <div class="profile-widget-item-label">Peminjaman</div>
+                                                <div class="profile-widget-item-value">187</div>
                                             </div>
-                                            <div class="float-right">
-                                                <a href="/admin/class/index.php" class="btn btn-danger">Kembali</a>
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            <div class="profile-widget-item">
+                                                <div class="profile-widget-item-label">Pengembalian</div>
+                                                <div class="profile-widget-item-value">187</div>
                                             </div>
-                                        </form>
+                                            <div class="profile-widget-item">
+                                                <div class="profile-widget-item-label">Pengembalian Bermasalah</div>
+                                                <div class="profile-widget-item-value">0</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="profile-widget-description pb-0">
+                                        <div class="profile-widget-name">Agus Sampoerna <div
+                                                class="text-muted d-inline font-weight-normal">
+                                                <div class="slash"></div> X - RPL
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <p>Nis</p>
+                                            </div>
+                                            <div class="col-1">
+                                                <p> : </p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p>202110065</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <p>Nama Lengkap</p>
+                                            </div>
+                                            <div class="col-1">
+                                                <p> : </p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p>Agus Sampoerna</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <p>Kelas</p>
+                                            </div>
+                                            <div class="col-1">
+                                                <p> : </p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p>X - RPL</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <p>Email</p>
+                                            </div>
+                                            <div class="col-1">
+                                                <p> : </p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p>agussampoerna@mail.com</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <p>No Telepon</p>
+                                            </div>
+                                            <div class="col-1">
+                                                <p> : </p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p>+6283845456789</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <p>Alamat</p>
+                                            </div>
+                                            <div class="col-1">
+                                                <p> : </p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p>Jl. Jalan Jalan No. 666</p>
+                                            </div>
+                                        </div>
+                                        <div class="float-right">
+                                        <a href="/admin/dashboard/index.php" class="btn btn-danger mb-4">Kembali</a>
+                                        <a href="/profile/edit.php" class="btn btn-primary mb-4">Edit Data</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -171,13 +257,21 @@
     <script src="../../assets/js/stisla.js"></script>
 
     <!-- JS Libraies -->
+    <script src="../../assets/modules/prism/prism.js"></script>
     <script src="../../assets/modules/datatables/datatables.min.js"></script>
     <script src="../../assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
     <script src="../../assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
     <script src="../../assets/modules/jquery-ui/jquery-ui.min.js"></script>
 
+
+
     <!-- Page Specific JS File -->
-    <script src="../../assets/js/page/modules-datatables.js"></script>
+    <script src="../../assets/js/page/bootstrap-modal.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tbStudent').DataTable();
+        });
+    </script>
 
 
     <!-- Template JS File -->
