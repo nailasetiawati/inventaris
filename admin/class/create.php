@@ -142,7 +142,7 @@ if($_SESSION['status'] != 'login')
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form action="">
+                                        <form action="/admin/class/store.php" method="POST">
                                             <div class="form-group mb-3">
                                                 <label for="name">Nama Kelas</label>
                                                 <input type="text" name="name" id="name" class="form-control" placeholder="Masukkan Nama Kelas....">

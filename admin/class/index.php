@@ -45,7 +45,11 @@ if($_SESSION['status'] != 'login')
 </head>
 
 <body>
-<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+    <?php
+        $query = mysqli_query($koneksi, "SELECT * FROM classes WHERE id!=10");
+        while ($data = mysqli_fetch_array($query)) {
+        ?>
+    <div class="modal fade" id="modalDelete<?php echo $data['id'] ?>" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -58,13 +62,17 @@ if($_SESSION['status'] != 'login')
                     Apakah anda yakin akan menghapus data ini?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-danger">Yakin</button>
+                    <form action="/admin/class/delete.php" method="POST">
+                        <input type="hidden" name="id" value="<?php echo $data['id'] ?>">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-danger">Yakin</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-                
+    <?php } ?>
+
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
             <div class="navbar-bg"></div>
@@ -89,7 +97,7 @@ if($_SESSION['status'] != 'login')
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                             <img alt="image" src="../../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-                            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
+                            <div class="d-sm-none d-lg-inline-block">Hi, <?php echo $_SESSION['name'] ?></div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a href="/profile/index.php" class="dropdown-item has-icon">
@@ -154,6 +162,40 @@ if($_SESSION['status'] != 'login')
                     </div>
 
                     <div class="section-body">
+                        <?php
+                            if (isset($_GET['pesan'])) {
+                                $pesan = $_GET['pesan'];
+                                if ($pesan == 'create') {
+                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    Data Kelas Berhasil Ditambahkan!
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>';
+                                }elseif ($pesan == 'update') {
+                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    Data Kelas Berhasil Dirubah!
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>';
+                                }elseif ($pesan == 'delete') {
+                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    Data Kelas Berhasil Dihapus!
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>';
+                                }else{
+                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    Terjadi Masalah!
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>';
+                                }
+                            }
+                        ?>
                         <h2 class="section-title">Tabel Data Kelas</h2>
                         <p class="section-lead">
                             Berikut adalah data - data kelas yang ada pada aplikasi inventaris!
@@ -182,82 +224,29 @@ if($_SESSION['status'] != 'login')
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <?php
+                                                        $query = mysqli_query($koneksi, "SELECT * FROM classes WHERE id!=10");
+                                                        $nomor = 1;
+                                                        while ($data = mysqli_fetch_array($query)) {
+                                                    ?>
                                                     <tr>
-                                                        <td>1</td>
-                                                        <td class="text-center">X - RPL</td>
+                                                        <td><?php echo $nomor++; ?></td>
+                                                        <td class="text-center"><?php echo $data['name'] ?></td>
                                                         <td class="text-center">
-                                                            <a href="/admin/class/edit.php"
+                                                            <a href="/admin/class/edit.php?id=<?php echo $data['id'] ?>"
                                                                 class="btn btn-sm btn-warning" data-toggle="tooltip"
                                                                 data-placement="top" title="Edit"><i
                                                                     class="fas fa-pencil-alt"></i></a>
                                                             <!-- Button trigger modal -->
                                                             <button type="button" class="btn btn-sm btn-danger"
-                                                                data-toggle="modal" data-target="#modalDelete">
+                                                                data-toggle="modal"
+                                                                data-target="#modalDelete<?php echo $data['id'] ?>">
                                                                 <i class="fas fa-trash"></i>
                                                             </button>
                                                         </td>
                                                         <!-- Modal -->
                                                     </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td class="text-center">X - MM1</td>
-                                                        <td class="text-center">
-                                                            <a href="" class="btn btn-sm btn-warning"
-                                                                data-toggle="tooltip" data-placement="top"
-                                                                title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                            <a href="" class="btn btn-sm btn-danger"
-                                                                data-toggle="tooltip" data-placement="top"
-                                                                title="Hapus"><i class="fas fa-trash"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td class="text-center">X - MM2</td>
-                                                        <td class="text-center">
-                                                            <a href="" class="btn btn-sm btn-warning"
-                                                                data-toggle="tooltip" data-placement="top"
-                                                                title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                            <a href="" class="btn btn-sm btn-danger"
-                                                                data-toggle="tooltip" data-placement="top"
-                                                                title="Hapus"><i class="fas fa-trash"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td class="text-center">X - MM3</td>
-                                                        <td class="text-center">
-                                                            <a href="" class="btn btn-sm btn-warning"
-                                                                data-toggle="tooltip" data-placement="top"
-                                                                title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                            <a href="" class="btn btn-sm btn-danger"
-                                                                data-toggle="tooltip" data-placement="top"
-                                                                title="Hapus"><i class="fas fa-trash"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>5</td>
-                                                        <td class="text-center">XI - RPL</td>
-                                                        <td class="text-center">
-                                                            <a href="" class="btn btn-sm btn-warning"
-                                                                data-toggle="tooltip" data-placement="top"
-                                                                title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                            <a href="" class="btn btn-sm btn-danger"
-                                                                data-toggle="tooltip" data-placement="top"
-                                                                title="Hapus"><i class="fas fa-trash"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>6</td>
-                                                        <td class="text-center">XI - MM1</td>
-                                                        <td class="text-center">
-                                                            <a href="" class="btn btn-sm btn-warning"
-                                                                data-toggle="tooltip" data-placement="top"
-                                                                title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                            <a href="" class="btn btn-sm btn-danger"
-                                                                data-toggle="tooltip" data-placement="top"
-                                                                title="Hapus"><i class="fas fa-trash"></i></a>
-                                                        </td>
-                                                    </tr>
+                                                    <?php } ?>
                                                 </tbody>
                                             </table>
                                         </div>

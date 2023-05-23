@@ -142,17 +142,24 @@ if($_SESSION['status'] != 'login')
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form action="">
+                                        <?php 
+                                            $id = $_GET['id'];
+                                            $query = mysqli_query($koneksi, "SELECT * FROM classes WHERE id='$id'");
+                                            while($data = mysqli_fetch_array($query)){
+                                        ?>
+                                        <form action="/admin/class/update.php" method="POST">
+                                            <input type="hidden" name="id" value="<?php echo $data['id'] ?>">
                                             <div class="form-group mb-3">
                                                 <label for="name">Nama Kelas</label>
                                                 <input type="text" name="name" id="name" class="form-control"
-                                                    placeholder="Masukkan Nama Kelas...." value="X - RPL">
+                                                    placeholder="Masukkan Nama Kelas...." value="<?php echo $data['name'] ?>">
                                             </div>
                                             <div class="float-right">
                                                 <a href="/admin/class/index.php" class="btn btn-danger">Kembali</a>
                                                 <button type="submit" class="btn btn-primary">Submit</button>
                                             </div>
                                         </form>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
