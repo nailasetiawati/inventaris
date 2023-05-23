@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="../../assets/modules/weather-icon/css/weather-icons.min.css">
     <link rel="stylesheet" href="../../assets/modules/weather-icon/css/weather-icons-wind.min.css">
     <link rel="stylesheet" href="../../assets/modules/summernote/summernote-bs4.css">
+    <link rel="stylesheet" href="../../assets/modules/jqvmap/dist/jqvmap.min.css">
+    <link rel="stylesheet" href="../../assets/modules/flag-icon-css/css/flag-icon.min.css">
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="../../assets/css/style.css">
@@ -82,13 +84,14 @@
             <div class="main-sidebar sidebar-style-2">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="index.html">Inventaris</a>
+                        <a href="/admin/dashboard/index.php">Inventaris</a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
-                        <a href="index.html">IT</a>
+                        <a href="/admin/dashboard/index.php">IT</a>
                     </div>
                     <ul class="sidebar-menu">
-                    <li class="mb-2"><a class="nav-link text-primary" href="/admin/dashboard/index.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                        <li class="mb-2"><a class="nav-link text-primary" href="/admin/dashboard/index.php"><i
+                                    class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
                         <li class="dropdown mb-2">
                             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                                     class="fas fa-users"></i> <span>Siswa</span></a>
@@ -105,8 +108,10 @@
                                 <li><a class="nav-link" href="/admin/item/index.php">Kelola Barang</a></li>
                             </ul>
                         </li>
-                        <li class="mb-2"><a class="nav-link" href="/admin/borrow/index.php"><i class="fas fa-book"></i> <span>Peminjaman</span></a></li>
-                        <li class="mb-2"><a class="nav-link" href="/admin/report/index.php"><i class="fas fa-file"></i> <span>Laporan</span></a></li>
+                        <li class="mb-2"><a class="nav-link" href="/admin/borrow/index.php"><i class="fas fa-book"></i>
+                                <span>Peminjaman</span></a></li>
+                        <li class="mb-2"><a class="nav-link" href="/admin/report/index.php"><i class="fas fa-file"></i>
+                                <span>Laporan</span></a></li>
                     </ul>
                 </aside>
             </div>
@@ -121,14 +126,14 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                             <div class="card card-statistic-1">
                                 <div class="card-icon bg-primary">
-                                    <i class="far fa-user"></i>
+                                    <i class="fas fa-users"></i>
                                 </div>
                                 <div class="card-wrap">
                                     <div class="card-header">
-                                        <h4>Total Admin</h4>
+                                        <h4>Total Siswa</h4>
                                     </div>
                                     <div class="card-body">
-                                        10
+                                        25
                                     </div>
                                 </div>
                             </div>
@@ -136,14 +141,14 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                             <div class="card card-statistic-1">
                                 <div class="card-icon bg-danger">
-                                    <i class="far fa-newspaper"></i>
+                                    <i class="fas fa-th-large"></i>
                                 </div>
                                 <div class="card-wrap">
                                     <div class="card-header">
-                                        <h4>News</h4>
+                                        <h4>Total Barang</h4>
                                     </div>
                                     <div class="card-body">
-                                        42
+                                        48
                                     </div>
                                 </div>
                             </div>
@@ -151,14 +156,14 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                             <div class="card card-statistic-1">
                                 <div class="card-icon bg-warning">
-                                    <i class="far fa-file"></i>
+                                    <i class="fas fa-book"></i>
                                 </div>
                                 <div class="card-wrap">
                                     <div class="card-header">
-                                        <h4>Reports</h4>
+                                        <h4>Peminjaman Hari Ini</h4>
                                     </div>
                                     <div class="card-body">
-                                        1,201
+                                        5
                                     </div>
                                 </div>
                             </div>
@@ -170,11 +175,31 @@
                                 </div>
                                 <div class="card-wrap">
                                     <div class="card-header">
-                                        <h4>Online Users</h4>
+                                        <h4>Peminjaman Bermasalah</h4>
                                     </div>
                                     <div class="card-body">
-                                        47
+                                        5
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Statistik Peminjaman</h4>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="myChart2" height="180"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Barang Berdasarkan Kondisi</h4>
+                                </div>
+                                <div class="card-body mb-3">
+                                    <canvas id="myChart3" height="360"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -183,8 +208,7 @@
             </div>
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad
-                        Nauval Azhar</a>
+                    Copyright &copy; 2023 Inventaris
                 </div>
                 <div class="footer-right">
 
@@ -203,6 +227,7 @@
     <script src="../../assets/js/stisla.js"></script>
 
     <!-- JS Libraies -->
+    <script src="../../assets/modules/jquery.sparkline.min.js"></script>
     <script src="../../assets/modules/simple-weather/jquery.simpleWeather.min.js"></script>
     <script src="../../assets/modules/chart.min.js"></script>
     <script src="../../assets/modules/jqvmap/dist/jquery.vmap.min.js"></script>
@@ -211,7 +236,65 @@
     <script src="../../assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 
     <!-- Page Specific JS File -->
-    <script src="../../assets/js/page/index-0.js"></script>
+    <script>
+        var ctx = document.getElementById('myChart2').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli"],
+                datasets: [{
+                    label: 'Peminjaman',
+                    data: [460, 458, 330, 502, 430, 610, 488],
+                    borderWidth: 2,
+                    backgroundColor: 'rgba(254,86,83,.7)',
+                    borderColor: 'rgba(254,86,83,.7)',
+                    borderWidth: 2.5,
+                    pointBackgroundColor: '#ffffff',
+                    pointRadius: 4
+            }],
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            drawBorder: false,
+                            color: '#f2f2f2',
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 150
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                },
+            }
+        }
+    });
+
+        var ctp = document.getElementById('myChart3');
+        var myChart = new Chart(ctp, {
+            type: 'pie',
+            data: {
+                labels: ["Baik", "Rusak", "Hilang",],
+                datasets: [{
+                    label: 'Peminjaman',
+                    data: [90, 48, 20],
+                    borderWidth: 2,
+                    backgroundColor: 'rgba(254,86,83,.7)',
+                    borderColor: 'rgba(254,86,83,.7)',
+                    borderWidth: 2.5,
+                    pointBackgroundColor: '#ffffff',
+                    pointRadius: 4
+            }],
+            }
+        });
+    </script>
 
     <!-- Template JS File -->
     <script src="../../assets/js/scripts.js"></script>
