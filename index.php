@@ -1,3 +1,12 @@
+<?php
+include 'config.php';
+session_start();
+if (isset($_SESSION['status']) == 'login' && $_SESSION['role'] == 'admin') {
+    header('location:admin/dashboard/index.php');
+}elseif (isset($_SESSION['status']) == 'login' && $_SESSION['role'] == 'user') {
+    header('location:user/home/index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +58,7 @@
                             </div>
 
                             <div class="card-body">
-                                <form method="POST" action="#" class="needs-validation" novalidate="">
+                                <form method="POST" action="login.php" class="needs-validation" novalidate="">
                                     <div class="form-group">
                                         <label for="email">Email</label>
                                         <input id="email" type="email" class="form-control" name="email" tabindex="1"
@@ -71,9 +80,9 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <a href="admin/dashboard/index.php" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                                             Login
-                                        </a>
+                                        </button>
                                     </div>
                                 </form>
                             </div>

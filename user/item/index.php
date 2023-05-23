@@ -1,3 +1,13 @@
+<?php
+include '../../config.php';
+session_start();
+if($_SESSION['status'] != 'login')
+{
+    header('location:/index.php');
+}elseif($_SESSION['role'] != 'user'){
+    header('location:/admin/dashboard/index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,7 +99,7 @@
                                 <i class="fas fa-cog"></i> Settings
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="/index.php" class="dropdown-item has-icon text-danger">
+                            <a href="../../logout.php" class="dropdown-item has-icon text-danger">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </div>
