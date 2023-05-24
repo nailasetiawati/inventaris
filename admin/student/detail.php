@@ -68,8 +68,14 @@ if($_SESSION['status'] != 'login')
                 <ul class="navbar-nav navbar-right">
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                            <img alt="image" src="../../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-                            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
+                            <?php
+                                if($_SESSION['image'] == null){
+                                echo '<img alt="image" src="../../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">';
+                                }else{
+                                    echo '<img alt="image" src="../../assets/img/student/'.$_SESSION['image'].'" class="rounded-circle mr-1">';
+                                }
+                            ?>
+                            <div class="d-sm-none d-lg-inline-block">Hi, <?php echo $_SESSION['name'] ?></div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a href="/profile/index.php" class="dropdown-item has-icon">
@@ -132,11 +138,16 @@ if($_SESSION['status'] != 'login')
                             <div class="breadcrumb-item">Detail Siswa</div>
                         </div>
                     </div>
-
+                    <?php
+                            $id = $_GET['id'];
+                            $query = "SELECT * FROM users INNER JOIN classes ON users.class_id = classes.id WHERE nis=$id";
+                            $sql = mysqli_query($koneksi, $query);
+                            while($data = mysqli_fetch_array($sql)){
+                        ?>
                     <div class="section-body">
                         <h2 class="section-title">Informasi Siswa</h2>
                         <p class="section-lead">
-                            Berikut adalah data - data yang dimiliki oleh siswa bernama Agus Sampoerna.
+                            Berikut adalah data - data yang dimiliki oleh siswa bernama <?=$data['name'];?>.
                         </p>
 
                         <div class="row">
@@ -161,9 +172,9 @@ if($_SESSION['status'] != 'login')
                                         </div>
                                     </div>
                                     <div class="profile-widget-description pb-0">
-                                        <div class="profile-widget-name">Agus Sampoerna <div
+                                        <div class="profile-widget-name"><?=$data['name'];?> <div
                                                 class="text-muted d-inline font-weight-normal">
-                                                <div class="slash"></div> X - RPL
+                                                <div class="slash"></div> <?=$data['class_name'];?>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -174,7 +185,7 @@ if($_SESSION['status'] != 'login')
                                                 <p> : </p>
                                             </div>
                                             <div class="col-6">
-                                                <p>202110065</p>
+                                                <p><?=$data['nis'];?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -185,7 +196,7 @@ if($_SESSION['status'] != 'login')
                                                 <p> : </p>
                                             </div>
                                             <div class="col-6">
-                                                <p>Agus Sampoerna</p>
+                                            <p><?=$data['name'];?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -196,7 +207,7 @@ if($_SESSION['status'] != 'login')
                                                 <p> : </p>
                                             </div>
                                             <div class="col-6">
-                                                <p>X - RPL</p>
+                                            <p><?=$data['class_name'];?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -207,7 +218,7 @@ if($_SESSION['status'] != 'login')
                                                 <p> : </p>
                                             </div>
                                             <div class="col-6">
-                                                <p>agussampoerna@mail.com</p>
+                                            <p><?=$data['email'];?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -218,7 +229,7 @@ if($_SESSION['status'] != 'login')
                                                 <p> : </p>
                                             </div>
                                             <div class="col-6">
-                                                <p>+6283845456789</p>
+                                            <p><?=$data['phone_number'];?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -229,7 +240,7 @@ if($_SESSION['status'] != 'login')
                                                 <p> : </p>
                                             </div>
                                             <div class="col-6">
-                                                <p>Jl. Jalan Jalan No. 666</p>
+                                            <p><?=$data['address'];?></p>
                                             </div>
                                         </div>
                                         <div class="float-right">
@@ -240,6 +251,7 @@ if($_SESSION['status'] != 'login')
                             </div>
                         </div>
                     </div>
+                    <?php } ?>
                 </section>
             </div>
             <footer class="main-footer">

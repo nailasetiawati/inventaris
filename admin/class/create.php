@@ -67,8 +67,14 @@ if($_SESSION['status'] != 'login')
                 <ul class="navbar-nav navbar-right">
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                            <img alt="image" src="../../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-                            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
+                            <?php
+                                if($_SESSION['image'] == null){
+                                echo '<img alt="image" src="../../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">';
+                                }else{
+                                    echo '<img alt="image" src="../../assets/img/student/'.$_SESSION['image'].'" class="rounded-circle mr-1">';
+                                }
+                            ?>
+                            <div class="d-sm-none d-lg-inline-block">Hi, <?php echo $_SESSION['name'] ?></div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a href="/profile/index.php" class="dropdown-item has-icon">
@@ -146,6 +152,16 @@ if($_SESSION['status'] != 'login')
                                             <div class="form-group mb-3">
                                                 <label for="name">Nama Kelas</label>
                                                 <input type="text" name="name" id="name" class="form-control" placeholder="Masukkan Nama Kelas....">
+                                                <?php
+                                                            if(isset($_GET['pesan'])){
+                                                                $pesan = $_GET['pesan'];
+                                                                if($pesan == 'null_name'){
+                                                                    echo '<p class="text-danger small"><b>Kolom nama harus diisi!</b></p>';
+                                                                }elseif($pesan == 'unique_name'){
+                                                                    echo '<p class="text-danger small"><b>Nama kelas sudah digunakan!</b></p>';
+                                                                }
+                                                            }
+                                                            ?>
                                             </div>
                                             <div class="float-right">
                                             <a href="/admin/class/index.php" class="btn btn-danger">Kembali</a>

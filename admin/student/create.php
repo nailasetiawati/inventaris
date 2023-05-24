@@ -67,8 +67,14 @@ if($_SESSION['status'] != 'login')
                 <ul class="navbar-nav navbar-right">
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                            <img alt="image" src="../../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-                            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
+                            <?php
+                                if($_SESSION['image'] == null){
+                                echo '<img alt="image" src="../../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">';
+                                }else{
+                                    echo '<img alt="image" src="../../assets/img/student/'.$_SESSION['image'].'" class="rounded-circle mr-1">';
+                                }
+                            ?>
+                            <div class="d-sm-none d-lg-inline-block">Hi, <?php echo $_SESSION['name'] ?></div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a href="/profile/index.php" class="dropdown-item has-icon">
@@ -142,13 +148,25 @@ if($_SESSION['status'] != 'login')
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form action="">
+                                        <form action="/admin/student/store.php" method="POST" enctype="multipart/form-data">
                                             <div class="row">
                                                 <div class="col-6">
                                                     <div class="form-group mb-3">
                                                         <label for="nis">Nomor Induk Siswa</label>
                                                         <input type="number" name="nis" id="nis" class="form-control"
                                                             placeholder="Masukkan Nomor Induk Siswa....">
+                                                            <?php
+                                                            if(isset($_GET['pesan'])){
+                                                                $pesan = $_GET['pesan'];
+                                                                if($pesan == 'null_nis'){
+                                                                    echo '<p class="text-danger small"><b>Kolom nis harus diisi!</b></p>';
+                                                                }elseif($pesan == 'string_nis'){
+                                                                    echo '<p class="text-danger small"><b>Kolom nis hanya bisa diisi dengan angka!</b></p>';
+                                                                }elseif($pesan == 'unique_nis'){
+                                                                    echo '<p class="text-danger small"><b>Nis sudah digunakan oleh siswa lain!</b></p>';
+                                                                }
+                                                            }
+                                                            ?>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
@@ -156,6 +174,14 @@ if($_SESSION['status'] != 'login')
                                                         <label for="name">Nama Siswa</label>
                                                         <input type="text" name="name" id="name" class="form-control"
                                                             placeholder="Masukkan Nama Siswa....">
+                                                            <?php
+                                                            if(isset($_GET['pesan'])){
+                                                                $pesan = $_GET['pesan'];
+                                                                if($pesan == 'null_name'){
+                                                                    echo '<p class="text-danger small"><b>Kolom nama harus diisi!</b></p>';
+                                                                }
+                                                            }
+                                                            ?>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
@@ -163,12 +189,22 @@ if($_SESSION['status'] != 'login')
                                                         <label for="selectClass">Kelas</label>
                                                         <select name="class_id" class="form-control select2">
                                                             <option value="" selected>Silahkan Pilih Kelas....</option>
-                                                            <option value="1">X - RPL</option>
-                                                            <option value="2">X - MM1</option>
-                                                            <option value="3">X - MM2</option>
-                                                            <option value="4">XI - RPL</option>
-                                                            <option value="5">XI - MM1</option>
+                                                            <?php
+                                                                $query = "SELECT * FROM classes WHERE id!=10";
+                                                                $sql = mysqli_query($koneksi, $query);
+                                                                while($data = mysqli_fetch_array($sql)){
+                                                            ?>
+                                                            <option value="<?=$data['id'];?>"><?=$data['class_name'];?></option>
+                                                            <?php } ?>
                                                         </select>
+                                                        <?php
+                                                            if(isset($_GET['pesan'])){
+                                                                $pesan = $_GET['pesan'];
+                                                                if($pesan == 'null_class'){
+                                                                    echo '<p class="text-danger small"><b>Kolom kelas harus diisi!</b></p>';
+                                                                }
+                                                            }
+                                                            ?>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
@@ -176,14 +212,47 @@ if($_SESSION['status'] != 'login')
                                                         <label for="email">Email Siswa</label>
                                                         <input type="email" name="email" id="email" class="form-control"
                                                             placeholder="Masukkan Email Siswa....">
+                                                            <?php
+                                                            if(isset($_GET['pesan'])){
+                                                                $pesan = $_GET['pesan'];
+                                                                if($pesan == 'null_email'){
+                                                                    echo '<p class="text-danger small"><b>Kolom email harus diisi!</b></p>';
+                                                                }elseif($pesan == 'unique_email'){
+                                                                    echo '<p class="text-danger small"><b>Email sudah digunakan siswa lain!</b></p>';
+                                                                }
+                                                            }
+                                                            ?>
                                                     </div>
                                                 </div>
-                                                <div class="col-12">
+                                                <div class="col-6">
+                                                    <div class="form-group mb-3">
+                                                        <label for="password">Password</label>
+                                                        <input type="text" name="password" id="password" class="form-control"
+                                                            placeholder="Masukkan Password Siswa....">
+                                                            <?php
+                                                            if(isset($_GET['pesan'])){
+                                                                $pesan = $_GET['pesan'];
+                                                                if($pesan == 'null_password'){
+                                                                    echo '<p class="text-danger small"><b>Kolom password harus diisi!</b></p>';
+                                                                }
+                                                            }
+                                                            ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
                                                     <div class="form-group mb-3">
                                                         <label for="phone">No Telepon Siswa</label>
                                                         <input type="text" name="phone_number" id="phone"
                                                             class="form-control"
                                                             placeholder="Masukkan No Telepon Siswa....">
+                                                            <?php
+                                                            if(isset($_GET['pesan'])){
+                                                                $pesan = $_GET['pesan'];
+                                                                if($pesan == 'null_phone'){
+                                                                    echo '<p class="text-danger small"><b>Kolom nomor telepon harus diisi!</b></p>';
+                                                                }
+                                                            }
+                                                            ?>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
@@ -192,16 +261,35 @@ if($_SESSION['status'] != 'login')
                                                         <textarea name="address" id="address" class="form-control"
                                                             cols="30" rows="10"
                                                             placeholder="Masukkan Alamat Siswa..."></textarea>
+                                                            <?php
+                                                            if(isset($_GET['pesan'])){
+                                                                $pesan = $_GET['pesan'];
+                                                                if($pesan == 'null_address'){
+                                                                    echo '<p class="text-danger small"><b>Kolom alamat harus diisi!</b></p>';
+                                                                }
+                                                            }
+                                                            ?>
                                                     </div>
                                                 </div>
-                                                <div class="col-12">
-                                                    <div class="form-group mb-3">
-                                                        <label for="image">Foto Profile</label>
+                                                <div class="col-6 mx-auto">
+                                                    <div class="form-group mb-3 text-center">
+                                                        <label for="image" class="col-12">Foto Profile</label>
+                                                        <img src="/assets/img/avatar/avatar-1.png" class="mb-2 img-fluid img-preview rounded-circle" height="90px" width="90px">
                                                         <div class="custom-file">
                                                             <input type="file" class="custom-file-input"
-                                                                id="image" name="image">
+                                                                id="image" name="image" onchange="previewImage()">
                                                             <label class="custom-file-label" for="customFile">Choose
                                                                 file</label>
+                                                                <?php
+                                                            if(isset($_GET['pesan'])){
+                                                                $pesan = $_GET['pesan'];
+                                                                if($pesan == 'extension_failed'){
+                                                                    echo '<p class="text-danger small"><b>Foto profile harus berupa gambar!</b></p>';
+                                                                }elseif($pesan == 'size_failed'){
+                                                                    echo '<p class="text-danger small"><b>Ukuran gambar tidak boleh lebih dari 10MB!</b></p>';
+                                                                }
+                                                            }
+                                                            ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -250,6 +338,19 @@ if($_SESSION['status'] != 'login')
 
     <!-- Page Specific JS File -->
     <script src="../../assets/js/page/modules-datatables.js"></script>
+    <script>
+            function previewImage(){
+            const image = document.querySelector('#image');
+            const imgPreview = document.querySelector('.img-preview');
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+            
+            oFReader.onload = function(oFREvent){
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
+</script>
 
 
     <!-- Template JS File -->

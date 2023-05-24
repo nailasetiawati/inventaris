@@ -45,7 +45,13 @@ if($_SESSION['status'] != 'login')
 </head>
 
 <body>
-<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+<?php
+    $query = "SELECT * FROM users
+    INNER JOIN classes ON users.class_id = classes.id";
+    $sql = mysqli_query($koneksi, $query);
+    while ($data = mysqli_fetch_array($sql)) {
+?>
+<div class="modal fade" id="modalDelete<?=$data['nis'];?>" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -58,12 +64,16 @@ if($_SESSION['status'] != 'login')
                     Apakah anda yakin akan menghapus data ini?
                 </div>
                 <div class="modal-footer">
+                    <form action="/admin/student/delete.php" method="post">
+                        <input type="hidden" name="id" value="<?=$data['nis'];?>">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-danger">Yakin</button>
+                    <button type="submit" class="btn btn-danger">Yakin</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <?php } ?>
                 
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
@@ -88,8 +98,14 @@ if($_SESSION['status'] != 'login')
                 <ul class="navbar-nav navbar-right">
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                            <img alt="image" src="../../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-                            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
+                            <?php
+                                if($_SESSION['image'] == null){
+                                echo '<img alt="image" src="../../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">';
+                                }else{
+                                    echo '<img alt="image" src="../../assets/img/student/'.$_SESSION['image'].'" class="rounded-circle mr-1">';
+                                }
+                            ?>
+                            <div class="d-sm-none d-lg-inline-block">Hi, <?php echo $_SESSION['name'] ?></div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a href="/profile/index.php" class="dropdown-item has-icon">
@@ -154,6 +170,40 @@ if($_SESSION['status'] != 'login')
                     </div>
 
                     <div class="section-body">
+                    <?php
+                    if (isset($_GET['pesan'])) {
+                                $pesan = $_GET['pesan'];
+                                if ($pesan == 'create') {
+                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    Data Siswa Berhasil Ditambahkan!
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>';
+                                }elseif ($pesan == 'update') {
+                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    Data Siswa Berhasil Dirubah!
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>';
+                                }elseif ($pesan == 'delete') {
+                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    Data Siswa Berhasil Dihapus!
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>';
+                                }else{
+                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    Terjadi Masalah!
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>';
+                                }
+                            }
+                        ?>
                         <h2 class="section-title">Tabel Data Siswa</h2>
                         <p class="section-lead">
                             Berikut adalah data - data siswa yang ada pada aplikasi inventaris!
@@ -184,111 +234,35 @@ if($_SESSION['status'] != 'login')
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <?php
+                                                    $no = 1;
+                                                        $query = "SELECT * FROM users
+                                                                    INNER JOIN classes ON users.class_id = classes.id WHERE class_id!=10";
+                                                        $sql = mysqli_query($koneksi, $query);
+                                                        while ($data = mysqli_fetch_array($sql)) {
+                                                    ?>
                                                     <tr>
-                                                        <td>1</td>
-                                                        <td class="text-center">202110065</td>
-                                                        <td class="text-center">Agus Sampoerna</td>
-                                                        <td class="text-center">X - RPL</td>
+                                                        <td><?=$no++;?></td>
+                                                        <td class="text-center"><?=$data['nis'];?></td>
+                                                        <td class="text-center"><?=$data['name'];?></td>
+                                                        <td class="text-center"><?=$data['class_name']?></td>
                                                         <td class="text-center">
-                                                            <a href="/admin/student/detail.php"
+                                                            <a href="/admin/student/detail.php?id=<?=$data['nis'];?>"
                                                                 class="btn btn-sm btn-primary" data-toggle="tooltip"
                                                                 data-placement="top" title="Detail"><i
                                                                     class="fas fa-eye"></i></a>
-                                                            <a href="/admin/student/edit.php"
+                                                            <a href="/admin/student/edit.php?id=<?=$data['nis'];?>"
                                                                 class="btn btn-sm btn-warning" data-toggle="tooltip"
                                                                 data-placement="top" title="Edit"><i
                                                                     class="fas fa-pencil-alt"></i></a>
                                                             <!-- Button trigger modal -->
                                                             <button type="button" class="btn btn-sm btn-danger"
-                                                                data-toggle="modal" data-target="#modalDelete">
+                                                                data-toggle="modal" data-target="#modalDelete<?=$data['nis'];?>">
                                                                 <i class="fas fa-trash"></i>
                                                             </button>
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td class="text-center">202110066</td>
-                                                        <td class="text-center">Agung Subagja</td>
-                                                        <td class="text-center">X - RPL</td>
-                                                        <td class="text-center">
-                                                            <a href="/admin/student/detail.php"
-                                                                class="btn btn-sm btn-primary" data-toggle="tooltip"
-                                                                data-placement="top" title="Detail"><i
-                                                                    class="fas fa-eye"></i></a>
-                                                            <a href="/admin/student/edit.php"
-                                                                class="btn btn-sm btn-warning" data-toggle="tooltip"
-                                                                data-placement="top" title="Edit"><i
-                                                                    class="fas fa-pencil-alt"></i></a>
-                                                            <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-sm btn-danger"
-                                                                data-toggle="modal" data-target="#modalDelete">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td class="text-center">202110067</td>
-                                                        <td class="text-center">Agisni Nurmawarni</td>
-                                                        <td class="text-center">X - RPL</td>
-                                                        <td class="text-center">
-                                                            <a href="/admin/student/detail.php"
-                                                                class="btn btn-sm btn-primary" data-toggle="tooltip"
-                                                                data-placement="top" title="Detail"><i
-                                                                    class="fas fa-eye"></i></a>
-                                                            <a href="/admin/student/edit.php"
-                                                                class="btn btn-sm btn-warning" data-toggle="tooltip"
-                                                                data-placement="top" title="Edit"><i
-                                                                    class="fas fa-pencil-alt"></i></a>
-                                                            <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-sm btn-danger"
-                                                                data-toggle="modal" data-target="#modalDelete">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td class="text-center">202110068</td>
-                                                        <td class="text-center">Bagus Nugraha</td>
-                                                        <td class="text-center">X - RPL</td>
-                                                        <td class="text-center">
-                                                            <a href="/admin/student/detail.php"
-                                                                class="btn btn-sm btn-primary" data-toggle="tooltip"
-                                                                data-placement="top" title="Detail"><i
-                                                                    class="fas fa-eye"></i></a>
-                                                            <a href="/admin/student/edit.php"
-                                                                class="btn btn-sm btn-warning" data-toggle="tooltip"
-                                                                data-placement="top" title="Edit"><i
-                                                                    class="fas fa-pencil-alt"></i></a>
-                                                            <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-sm btn-danger"
-                                                                data-toggle="modal" data-target="#modalDelete">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>5</td>
-                                                        <td class="text-center">202110069</td>
-                                                        <td class="text-center">Clarisa Putriana</td>
-                                                        <td class="text-center">X - RPL</td>
-                                                        <td class="text-center">
-                                                            <a href="/admin/student/detail.php"
-                                                                class="btn btn-sm btn-primary" data-toggle="tooltip"
-                                                                data-placement="top" title="Detail"><i
-                                                                    class="fas fa-eye"></i></a>
-                                                            <a href="/admin/student/edit.php"
-                                                                class="btn btn-sm btn-warning" data-toggle="tooltip"
-                                                                data-placement="top" title="Edit"><i
-                                                                    class="fas fa-pencil-alt"></i></a>
-                                                            <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-sm btn-danger"
-                                                                data-toggle="modal" data-target="#modalDelete">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
+                                                    <?php } ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -332,7 +306,9 @@ if($_SESSION['status'] != 'login')
     <script src="../../assets/js/page/bootstrap-modal.js"></script>
     <script>
         $(document).ready(function () {
-            $('#tbStudent').DataTable();
+            $('#tbStudent').DataTable({
+                order: [[4, 'desc']]
+            });
         });
     </script>
 
