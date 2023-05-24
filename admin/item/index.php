@@ -88,8 +88,14 @@ if($_SESSION['status'] != 'login')
                 <ul class="navbar-nav navbar-right">
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                            <img alt="image" src="../../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-                            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
+                            <?php
+                                if($_SESSION['image'] == null){
+                                echo '<img alt="image" src="../../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">';
+                                }else{
+                                    echo '<img alt="image" src="../../assets/img/student/'.$_SESSION['image'].'" class="rounded-circle mr-1">';
+                                }
+                            ?>
+                            <div class="d-sm-none d-lg-inline-block">Hi, <?php echo $_SESSION['name'] ?></div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a href="/profile/index.php" class="dropdown-item has-icon">
@@ -184,11 +190,18 @@ if($_SESSION['status'] != 'login')
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <?php
+                                                        $no = 1;
+                                                        $query = "SELECT * FROM items
+                                                                    INNER JOIN categories ON items.category_id = categories.id_category";
+                                                        $sql    = mysqli_query($koneksi, $query);
+                                                        while ($data = mysqli_fetch_array($sql)) {
+                                                    ?>
                                                     <tr>
-                                                        <td>1</td>
-                                                        <td class="text-center">BRG - 001</td>
-                                                        <td class="text-center">BENQ U22</td>
-                                                        <td class="text-center">Proyektor</td>
+                                                        <td><?=$no++;?></td>
+                                                        <td class="text-center"><?=$data['code'];?></td>
+                                                        <td class="text-center"><?=$data['name'];?></td>
+                                                        <td class="text-center"><?=$data['category_name'];?></td>
                                                         <td class="text-center">
                                                             <a href="/admin/item/detail.php"
                                                                 class="btn btn-sm btn-primary" data-toggle="tooltip"
@@ -205,69 +218,7 @@ if($_SESSION['status'] != 'login')
                                                             </button>
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td class="text-center">BRG - 002</td>
-                                                        <td class="text-center">Infocus Xerab</td>
-                                                        <td class="text-center">Proyektor</td>
-                                                        <td class="text-center">
-                                                            <a href="/admin/item/detail.php"
-                                                                class="btn btn-sm btn-primary" data-toggle="tooltip"
-                                                                data-placement="top" title="Detail"><i
-                                                                    class="fas fa-eye"></i></a>
-                                                            <a href="/admin/item/edit.php"
-                                                                class="btn btn-sm btn-warning" data-toggle="tooltip"
-                                                                data-placement="top" title="Edit"><i
-                                                                    class="fas fa-pencil-alt"></i></a>
-                                                            <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-sm btn-danger"
-                                                                data-toggle="modal" data-target="#modalDelete">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td class="text-center">BRG - 003</td>
-                                                        <td class="text-center">Pulpen Seukeut</td>
-                                                        <td class="text-center">Alat Tulis</td>
-                                                        <td class="text-center">
-                                                            <a href="/admin/item/detail.php"
-                                                                class="btn btn-sm btn-primary" data-toggle="tooltip"
-                                                                data-placement="top" title="Detail"><i
-                                                                    class="fas fa-eye"></i></a>
-                                                            <a href="/admin/item/edit.php"
-                                                                class="btn btn-sm btn-warning" data-toggle="tooltip"
-                                                                data-placement="top" title="Edit"><i
-                                                                    class="fas fa-pencil-alt"></i></a>
-                                                            <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-sm btn-danger"
-                                                                data-toggle="modal" data-target="#modalDelete">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td class="text-center">BRG - 004</td>
-                                                        <td class="text-center">Kabel Peugat</td>
-                                                        <td class="text-center">Kabel</td>
-                                                        <td class="text-center">
-                                                            <a href="/admin/item/detail.php"
-                                                                class="btn btn-sm btn-primary" data-toggle="tooltip"
-                                                                data-placement="top" title="Detail"><i
-                                                                    class="fas fa-eye"></i></a>
-                                                            <a href="/admin/item/edit.php"
-                                                                class="btn btn-sm btn-warning" data-toggle="tooltip"
-                                                                data-placement="top" title="Edit"><i
-                                                                    class="fas fa-pencil-alt"></i></a>
-                                                            <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-sm btn-danger"
-                                                                data-toggle="modal" data-target="#modalDelete">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
+                                                    <?php } ?>
                                                 </tbody>
                                             </table>
                                         </div>

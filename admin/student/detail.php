@@ -154,8 +154,15 @@ if($_SESSION['status'] != 'login')
                             <div class="col-12">
                                 <div class="card profile-widget">
                                     <div class="profile-widget-header">
-                                        <img alt="image" src="../../assets/img/avatar/avatar-1.png"
-                                            class="rounded-circle profile-widget-picture">
+                                        <?php
+                                            if($data['image'] == null){
+                                                echo '<img alt="image" src="../../assets/img/avatar/avatar-1.png"
+                                                class="rounded-circle profile-widget-picture">';
+                                            }else{
+                                                echo '<img alt="image" src="../../assets/img/student/'.$data['image'].'"
+                                                class="rounded-circle profile-widget-picture">';
+                                            }
+                                        ?>
                                         <div class="profile-widget-items">
                                             <div class="profile-widget-item">
                                                 <div class="profile-widget-item-label">Peminjaman</div>
